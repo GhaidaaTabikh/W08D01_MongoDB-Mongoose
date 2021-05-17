@@ -5,9 +5,7 @@ const db = require("./db");
 const app = express();
 app.use(express.json());
 
-
-
-//qui1 practice
+//que1 practice
 
 app.post("/create/todo", (req, res) => {
   const { task, description, deadline, isCompleted, priority } = req.body;
@@ -29,41 +27,52 @@ app.post("/create/todo", (req, res) => {
     });
 });
 
-// qui3 practice
+// que3 practice
 app.get("/todos", (req, res) => {
   todoModel
-  .find({})
-  .then((result) => {
-    res.send(result);
-  })
-  .catch((err) => {
-    res.send(err);
-  });
+    .find({})
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
-//qui4 practice
-app.get("/todos", (req, res) => {
-  todoModel
-  .find({"isCompleted":true})
-  .then((result) => {
-    res.send(result);
-  })
-  .catch((err) => {
-    res.send(err);
-  });
-});
+//que4 practice
+// app.get("/todos", (req, res) => {
+//   todoModel
+//   .find({"isCompleted":true})
+//   .then((result) => {
+//     res.send(result);
+//   })
+//   .catch((err) => {
+//     res.send(err);
+//   });
+// });
 
-//qui5 practice
+//que5 practice
 app.put("/update/todo", async (req, res) => {
-  const { task, description, deadline, isCompleted, priority } = req.body
-  const updateTodo = await todo.findOne({task, description, deadline, isCompleted, priority })
-  
-  try{
-    await mongoose.model('todo').update({ task: 'Ned Stark' }).j(true);}
-  catch{res.json("new error")}
-  
+  try {
+    await todoModel.update({ task: "lplk" }, { isCompleted: true }, () => {
+      console.log("done");
+      res.json("done");
+    });
+  } catch {
+    res.json("new error");
+  }
 });
-app.delete("/delete/todo", (req, res) => {});
+
+//que6 practice
+
+app.delete("/delete/todo",  async (req, res) => {
+  const ress = await todoModel.deleteOne({ task : 'sert' });
+  
+  console.log("delete");
+  res.json("done")
+
+  res.deletedCount;
+});
 
 const port = 3000;
 app.listen(port, () => {

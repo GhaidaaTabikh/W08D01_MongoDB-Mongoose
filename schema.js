@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 //que3
 
 const userSchema = new mongoose.Schema({
-  task: { type: String, require: true },
+  task: { type: String, required: true , unique :true },
   description: { type: String },
   deadline: { type: Date },
   isCompleted: { type: Boolean },
